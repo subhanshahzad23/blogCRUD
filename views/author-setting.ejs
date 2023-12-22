@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trendy Blogs - Author Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+    <header>
+        <div id="menu-bar" class="fa-solid fa-bars"></div>
+        <a href="/home" class="logo">Trendy Blogs</a>
+        <nav class="navbar">
+            <a href="/author">Author Home</a>
+            <a href="/create-draft">Create New Draft</a>
+        </nav>
+    </header>
+
+    <section class="author-settings">
+        <div class="content">
+            <h1 class="heading">Settings</h1>
+            <form action="/update-settings" method="POST">
+                <div class="form-group">
+                    <label for="blogTitle">Blog Title</label>
+                    <input type="text" id="blogTitle" name="blogTitle" placeholder="Enter your blog's title"
+                        value="Trendy Blogs" required>
+                </div>
+                <div class="form-group">
+                    <label for="authorName">Author Name</label>
+                    <input type="text" id="authorName" name="authorName" placeholder="Enter your name"
+                        value="AuthorName123" required>
+                </div>
+                <button type="submit" class="btn">Update Settings</button>
+                <a href="/author-home" class="btn">Back to Author Home</a>
+            </form>
+        </div>
+    </section>
+
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>About Trendy Blogs</h3>
+                <a href="/about">About Us</a>
+                <a href="/blog">Blog</a>
+                <a href="/team">Our Team</a>
+                <a href="/contact">Contact Us</a>
+            </div>
+            <div class="box">
+                <h3>Resources</h3>
+                <a href="/guides">Guides</a>
+                <a href="/categories">Categories</a>
+                <a href="/faq">FAQs</a>
+                <a href="/support">Support</a>
+            </div>
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="https://www.facebook.com">Facebook</a>
+                <a href="https://www.twitter.com">Twitter</a>
+                <a href="https://www.instagram.com">Instagram</a>
+                <a href="https://www.youtube.com">YouTube</a>
+            </div>
+            <div class="box">
+                <h3>Legal</h3>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-service">Terms of Service</a>
+                <a href="/cookie-policy">Cookie Policy</a>
+                <a href="/disclaimer">Disclaimer</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
