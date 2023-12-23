@@ -52,6 +52,10 @@ app.get("/login", (req, res) => {
   // Render the home.ejs template
   res.render("login"); // Assuming "home.ejs" is the name of your template file
 });
+app.get("/edit-article", (req, res) => {
+  // Render the home.ejs template
+  res.render("edit-article"); // Assuming "home.ejs" is the name of your template file
+});
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require("./routes/users");
 app.use("/users", usersRoutes);

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trendy Blogs - Author Settings</title>
+    <title>Trendy Blogs - Edit Article Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/styles.css" />
@@ -60,30 +60,28 @@
         <a href="/home" class="logo">Trendy Blogs</a>
         <nav class="navbar">
             <a href="/author">Author Home</a>
-            <a href="/create-draft">Create New Draft</a>
+            <a href="/author-settings">Settings</a>
         </nav>
     </header>
 
-    <section class="author-settings">
+    <section class="create-draft topi">
         <div class="content">
-            <h1 class="heading">Settings</h1>
-            <form action="/update-settings" method="POST">
+            <h1 class="heading">Edit Article Page</h1>
+            <form action="/save-draft" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="authorName">Author Name</label>
-                    <input type="text" id="authorName" name="authorName" placeholder="Enter your name"
-                        value="AuthorName123" required>
+                    <label for="draftTitle">Edit Title</label>
+                    <input type="text" id="draftTitle" name="draftTitle" placeholder="Enter draft title" required>
                 </div>
                 <div class="form-group">
-                    <label for="authorUsername">Author Username</label>
-                    <input type="text" id="authorUsername" name="authorUsername" placeholder="Enter your username"
-                        required>
+                    <label for="draftContent">Edit Content</label>
+                    <textarea id="draftContent" name="draftContent" placeholder="Write your draft content here"
+                        rows="10" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="authorPassword">Author Password</label>
-                    <input type="text" id="authorPassword" name="authorPassword" placeholder="Enter your password"
-                        required>
+                    <label for="draftImage">Upload Image</label>
+                    <input type="file" id="draftImage" name="draftImage" accept="image/*">
                 </div>
-                <button type="submit" class="btn">Update Settings</button>
+                <button type="submit" class="btn">Save Draft</button>
                 <a href="/author" class="btn">Back to Author Home</a>
             </form>
         </div>

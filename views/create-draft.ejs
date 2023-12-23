@@ -9,6 +9,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/styles.css" />
+    <style>
+        .form-group label {
+            font-size: 20px;
+            /* Increase font size */
+            font-weight: bold;
+            /* Make text bold */
+            display: block;
+            /* Display on a new line */
+            margin-bottom: 8px;
+            /* Add some space below the label */
+            color: var(--black);
+        }
+
+        /* Style for Upload Button */
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            /* Full width */
+            padding: 10px;
+            /* Padding for better touch area */
+            margin-top: 5px;
+            /* Space above the button */
+            margin-bottom: 20px;
+            /* Space below the button */
+            border: 1px solid #ddd;
+            /* Border styling */
+            border-radius: 5px;
+            /* Rounded corners */
+            cursor: pointer;
+            /* Cursor changes to pointer on hover */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow for depth */
+            background-color: #f8f8f8;
+            /* Light background color */
+            transition: background-color 0.3s ease;
+            /* Smooth background color transition */
+        }
+
+        input[type="file"]:hover {
+            background-color: #eaeaea;
+            /* Slightly darker background on hover */
+        }
+    </style>
 </head>
 
 <body>
@@ -24,7 +67,7 @@
     <section class="create-draft topi">
         <div class="content">
             <h1 class="heading">Create New Draft</h1>
-            <form action="/save-draft" method="POST">
+            <form action="/save-draft" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="draftTitle">Draft Title</label>
                     <input type="text" id="draftTitle" name="draftTitle" placeholder="Enter draft title" required>
@@ -33,6 +76,10 @@
                     <label for="draftContent">Draft Content</label>
                     <textarea id="draftContent" name="draftContent" placeholder="Write your draft content here"
                         rows="10" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="draftImage">Upload Image</label>
+                    <input type="file" id="draftImage" name="draftImage" accept="image/*">
                 </div>
                 <button type="submit" class="btn">Save Draft</button>
                 <a href="/author" class="btn">Back to Author Home</a>
