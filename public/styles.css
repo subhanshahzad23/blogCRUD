@@ -5,6 +5,11 @@
   --orange: #ff9f1a;
 }
 
+body {
+  background-color: #f9f9f9;
+  background-image: url("./images/bg.jpg");
+}
+
 /* CSS Reset */
 * {
   font-family: "Poppins", sans-serif;
