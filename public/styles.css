@@ -266,6 +266,11 @@ section {
   position: absolute;
   top: 0.5rem;
   left: -10rem;
+  z-index: 2; /* higher z-index */
+}
+.box img {
+  position: relative; /* or absolute, depending on your layout */
+  z-index: 1; /* lower z-index */
 }
 
 .products .box-container .box:hover .icons {
