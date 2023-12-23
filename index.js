@@ -57,17 +57,16 @@ app.get("/login", (req, res) => {
   // Render the home.ejs template
   res.render("login"); // Assuming "home.ejs" is the name of your template file
 });
-<<<<<<< Updated upstream
 app.get("/edit-article", (req, res) => {
   // Render the home.ejs template
   res.render("edit-article"); // Assuming "home.ejs" is the name of your template file
-=======
+});
 
 app.get("/view-article", (req, res) => {
   // Render the home.ejs template
   res.render("view-article"); // Assuming "home.ejs" is the name of your template file
->>>>>>> Stashed changes
 });
+
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require("./routes/users");
 app.use("/users", usersRoutes);
