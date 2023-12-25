@@ -7,7 +7,6 @@
 
 body {
   background-color: #f9f9f9;
-  background-image: url("./images/bg.jpg");
 }
 
 /* CSS Reset */
@@ -155,8 +154,8 @@ section {
 }
 
 .home .slide-container .slide .image .shoe {
-  width: 100%;
-  transform: rotate(-35deg);
+  width: 120%;
+  transform: rotate(0deg);
   animation: shoe 0.5s linear;
 }
 
