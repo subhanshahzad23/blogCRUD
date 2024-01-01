@@ -5,35 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#draftForm').on('submit', function (e) {
-                e.preventDefault(); // Prevent the default form submission
-
-                var formData = new FormData(this);
-
-                $.ajax({
-                    url: '/users/add-draft',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, // Tell jQuery not to process the data
-                    contentType: false, // Tell jQuery not to set contentType
-                    success: function (response) {
-                        alert(response.message); // Display the message from the response
-                        $('#draftForm').trigger('reset'); // Reset the form fields
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Error occurred: ' + xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
-
-
-
-    <title>Trendy Blogs - Create New Draft</title>
+    <title>Trendy Blogs - Edit Article Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/styles.css" />
@@ -100,26 +72,28 @@
     <section class="create-draft topi">
         <div class="content"
             style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.8);">
-            <h1 class="heading">Create New Draft</h1>
-            <form id="draftForm" action="/users/add-draft" method="POST" enctype="multipart/form-data">
+            <h1 class="heading">Edit Publish Article Page</h1>
+
+            <form action="/update-published-article/<%= articleData.article_id %>" method="POST"
+                enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="draftTitle">Draft Title</label>
-                    <input type="text" id="draftTitle" name="draftTitle" placeholder="Enter draft title" required>
+                    <label for="articleTitle">Article Title</label>
+                    <input type="text" id="articleTitle" name="articleTitle" value="<%= articleData.article_title %>"
+                        required>
                 </div>
                 <div class="form-group">
-                    <label for="draftContent">Draft Content</label>
-                    <textarea id="draftContent" name="draftContent" placeholder="Write your draft content here"
-                        rows="10" required></textarea>
+                    <label for="articleContent">Article Content</label>
+                    <textarea id="articleContent" name="articleContent" rows="10"
+                        required><%= articleData.article_content %></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="draftImage">Upload Image</label>
-                    <input type="file" id="draftImage" name="draftImage" accept="image/*">
+                    <label for="articleImage">Upload Image</label>
+                    <input type="file" id="articleImage" name="articleImage" accept="image/*">
+                    <input type="hidden" name="existingImagePath" value="<%= articleData.article_image_path %>">
                 </div>
-                <button type="submit" class="btn">Save Draft</button>
+                <button type="submit" class="btn">Update Article</button>
                 <a href="/author" class="btn">Back to Author Home</a>
             </form>
-            <div id="popupMessage" style="display:none;"></div>
-
         </div>
     </section>
 

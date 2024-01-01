@@ -248,6 +248,7 @@ section {
   overflow: hidden;
   background: #f9f9f9;
   flex: 1 1 30rem;
+  height: 550px;
 }
 
 .products .box-container .box .content {

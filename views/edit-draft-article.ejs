@@ -72,20 +72,26 @@
     <section class="create-draft topi">
         <div class="content"
             style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.8);">
-            <h1 class="heading">Edit Article Page</h1>
-            <form action="/save-draft" method="POST" enctype="multipart/form-data">
+            <h1 class="heading">Edit Draft Article Page</h1>
+            <!-- Update the form action to point to the update-draft route -->
+            <form action="/update-draft/<%= draftData.draft_id %>" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="draftTitle">Edit Title</label>
-                    <input type="text" id="draftTitle" name="draftTitle" placeholder="Enter draft title" required>
+                    <!-- Pre-fill the title -->
+                    <input type="text" id="draftTitle" name="draftTitle" value="<%= draftData.draft_title %>"
+                        placeholder="Enter draft title" required>
                 </div>
                 <div class="form-group">
                     <label for="draftContent">Edit Content</label>
+                    <!-- Pre-fill the content -->
                     <textarea id="draftContent" name="draftContent" placeholder="Write your draft content here"
-                        rows="10" required></textarea>
+                        rows="10" required><%= draftData.draft_content %></textarea>
                 </div>
                 <div class="form-group">
                     <label for="draftImage">Upload Image</label>
                     <input type="file" id="draftImage" name="draftImage" accept="image/*">
+                    <!-- Include existing image path as hidden field -->
+                    <input type="hidden" name="existingImagePath" value="<%= draftData.draft_image_path %>">
                 </div>
                 <button type="submit" class="btn">Save Draft</button>
                 <a href="/author" class="btn">Back to Author Home</a>

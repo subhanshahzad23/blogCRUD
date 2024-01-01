@@ -36,9 +36,99 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/author", (req, res) => {
-  // Render the home.ejs template
-  res.render("author"); // Assuming "home.ejs" is the name of your template file
+  const draftsQuery = "SELECT * FROM drafts";
+  const publishedQuery = "SELECT * FROM publishedarticles";
+
+  global.db.all(draftsQuery, (err, drafts) => {
+    if (err) {
+      console.error("Error in /author route - drafts:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    global.db.all(publishedQuery, (err, publishedArticles) => {
+      if (err) {
+        console.error("Error in /author route - publishedArticles:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      res.render("author", {
+        drafts: drafts,
+        publishedArticles: publishedArticles,
+      });
+    });
+  });
 });
+
+app.get("/edit-publish-article/:articleId", (req, res) => {
+  const articleId = req.params.articleId;
+
+  const query = "SELECT * FROM publishedarticles WHERE article_id = ?";
+  global.db.get(query, [articleId], (err, article) => {
+    if (err) {
+      console.error("Error fetching article:", err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      // Make sure you pass the article data as 'articleData'
+      res.render("edit-publish-article", { articleData: article });
+    }
+  });
+});
+app.get("/edit-draft-article/:draftId", (req, res) => {
+  const draftId = req.params.draftId;
+
+  const query = "SELECT * FROM drafts WHERE draft_id = ?";
+  global.db.get(query, [draftId], (err, draft) => {
+    if (err) {
+      console.error("Error fetching draft:", err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      res.render("edit-draft-article", { draftData: draft });
+    }
+  });
+});
+app.get("/reader-home", (req, res) => {
+  const query = "SELECT * FROM publishedarticles"; // Query to fetch published articles
+
+  global.db.all(query, (err, articles) => {
+    if (err) {
+      console.error("Error fetching published articles:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+    // Render the reader.ejs template with the articles data
+    res.render("reader", { articles: articles });
+  });
+});
+app.get("/view-article/:articleId", (req, res) => {
+  const articleId = req.params.articleId;
+
+  // Fetch the article data
+  const articleQuery = "SELECT * FROM publishedarticles WHERE article_id = ?";
+  global.db.get(articleQuery, [articleId], (err, article) => {
+    if (err) {
+      console.error("Error fetching article:", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+
+    if (!article) {
+      res.status(404).send("Article not found");
+      return;
+    }
+
+    // Fetch comments for the article
+    const commentsQuery = "SELECT * FROM comments WHERE article_id = ?";
+    global.db.all(commentsQuery, [articleId], (err, comments) => {
+      if (err) {
+        console.error("Error fetching comments:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        // Render the view-article template with both article and comments
+        res.render("view-article", { article: article, comments: comments });
+      }
+    });
+  });
+});
+
 app.get("/author-settings", (req, res) => {
   // Render the home.ejs template
   res.render("author-setting"); // Assuming "home.ejs" is the name of your template file
@@ -57,10 +147,6 @@ app.get("/login", (req, res) => {
   // Render the home.ejs template
   res.render("login"); // Assuming "home.ejs" is the name of your template file
 });
-app.get("/edit-article", (req, res) => {
-  // Render the home.ejs template
-  res.render("edit-article"); // Assuming "home.ejs" is the name of your template file
-});
 
 app.get("/view-article", (req, res) => {
   // Render the home.ejs template
@@ -70,6 +156,11 @@ app.get("/view-article", (req, res) => {
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require("./routes/users");
 app.use("/users", usersRoutes);
+const articleRoutes = require("./routes/users"); // Adjust the path to your router file
+
+app.use(articleRoutes); // Use the article router
+
+app.use("/uploads", express.static("uploads"));
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {

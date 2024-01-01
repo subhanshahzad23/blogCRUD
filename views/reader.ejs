@@ -32,103 +32,39 @@
 
 
     <!-- Products -->
+    <!-- Products -->
     <section id="products" class="products topi">
         <h1 class="heading">Published <span>Articles</span></h1>
         <div class="box-container">
-            <div class="box" sty>
-                <div class="icons">
-                    <a href="" class="fa-solid fa-heart"></a>
-                    <a href="/view-article" class="fa-solid fa-eye"></a>
-                </div>
-                <img src="images/blog.png"
-                    style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
-                <div class="content" style="font-size: 1.2em; margin-top: 20px;">
-                    <h3 style="font-size: 1.9em; color: #007bff;">Exploring the Mountains</h3>
-                    <p><strong>Date Published:</strong> July 15, 2023</p>
-                    <p><strong>Last Modified:</strong> August 10, 2023</p>
-                    <p>Reads: 120, Likes: 30</p>
-                    <a href="/view-article" class="btn">View</a>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="icons">
-                    <a href="" class="fa-solid fa-heart"></a>
-                    <a href="/view-article" class="fa-solid fa-eye"></a>
-                </div>
-                <img src="images/bll2.png"
-                    style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
-                <div class="content" style="font-size: 1.2em; margin-top: 20px;">
-                    <h3 style="font-size: 1.9em; color: #007bff;">Exploring the Mountains</h3>
-                    <p><strong>Date Published:</strong> July 15, 2023</p>
-                    <p><strong>Last Modified:</strong> August 10, 2023</p>
-                    <p>Reads: 120, Likes: 30</p>
-                    <a href="/view-article" class="btn">View</a>
-                </div>
-            </div>
-            <div class="box">
-                <div class="icons">
-                    <a href="" class="fa-solid fa-heart"></a>
-                    <a href="/view-article" class="fa-solid fa-eye"></a>
-                </div>
-                <img src="images/bll3.png"
-                    style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
-                <div class="content" style="font-size: 1.2em; margin-top: 20px;">
-                    <h3 style="font-size: 1.9em; color: #007bff;">Exploring the Mountains</h3>
-                    <p><strong>Date Published:</strong> July 15, 2023</p>
-                    <p><strong>Last Modified:</strong> August 10, 2023</p>
-                    <p>Reads: 120, Likes: 30</p>
-                    <a href="/view-article" class="btn">View</a>
-                </div>
-            </div>
-            <div class="box">
-                <div class="icons">
-                    <a href="" class="fa-solid fa-heart"></a>
-                    <a href="/view-article" class="fa-solid fa-eye"></a>
-                </div>
-                <img src="images/bll4.png"
-                    style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
-                <div class="content" style="font-size: 1.2em; margin-top: 20px;">
-                    <h3 style="font-size: 1.9em; color: #007bff;">Exploring the Mountains</h3>
-                    <p><strong>Date Published:</strong> July 15, 2023</p>
-                    <p><strong>Last Modified:</strong> August 10, 2023</p>
-                    <p>Reads: 120, Likes: 30</p>
-                    <a href="/view-article" class="btn">View</a>
-                </div>
-            </div>
-            <div class="box">
-                <div class="icons">
-                    <a href="" class="fa-solid fa-heart"></a>
-                    <a href="/view-article" class="fa-solid fa-eye"></a>
-                </div>
-                <img src="images/bll5.png"
-                    style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
-                <div class="content" style="font-size: 1.2em; margin-top: 20px;">
-                    <h3 style="font-size: 1.9em; color: #007bff;">Exploring the Mountains</h3>
-                    <p><strong>Date Published:</strong> July 15, 2023</p>
-                    <p><strong>Last Modified:</strong> August 10, 2023</p>
-                    <p>Reads: 120, Likes: 30</p>
-                    <a href="/view-article" class="btn">View</a>
-                </div>
-            </div>
-            <div class="box">
-                <div class="icons">
-                    <a href="" class="fa-solid fa-heart"></a>
-                    <a href="/view-article" class="fa-solid fa-eye"></a>
-                </div>
-                <img src="images/bll6.png"
-                    style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
-                <div class="content" style="font-size: 1.2em; margin-top: 20px;">
-                    <h3 style="font-size: 1.9em; color: #007bff;">Exploring the Mountains</h3>
-                    <p><strong>Date Published:</strong> July 15, 2023</p>
-                    <p><strong>Last Modified:</strong> August 10, 2023</p>
-                    <p>Reads: 120, Likes: 30</p>
-                    <a href="/view-article" class="btn">View</a>
-                </div>
-            </div>
-
-            <!-- Additional static articles here -->
-
+            <% if (articles && articles.length> 0) { %>
+                <% articles.forEach(function(article) { %>
+                    <div class="box">
+                        <div class="icons">
+                            <a href="" class="fa-solid fa-heart"></a>
+                            <a href="/view-article/<%= article.article_id %>" class="fa-solid fa-eye"></a>
+                        </div>
+                        <img src="<%= article.article_image_path %>"
+                            style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
+                        <div class="content" style="font-size: 1.2em; margin-top: 20px;">
+                            <h3 style="font-size: 1.9em; color: #007bff;">
+                                <%= article.article_title %>
+                            </h3>
+                            <p><strong>Date Published:</strong>
+                                <%= article.created_at %>
+                            </p>
+                            <p><strong>Last Modified:</strong>
+                                <%= article.last_modified_date %>
+                            </p>
+                            <p>Reads: 120, Likes: <%= article.likes %>
+                            </p>
+                            <a href="/view-article/<%= article.article_id %>" class="btn">View</a>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } else { %>
+                            <p>No published articles available</p>
+                            <% } %>
+        </div>
     </section>
 
 
