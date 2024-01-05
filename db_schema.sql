@@ -71,7 +71,7 @@ INSERT INTO publishedarticles (article_title, article_content, article_image_pat
 ('5 Business Ideas', 'A subscription-based service providing eco-friendly and sustainable products. This can range from household items to personal care products, all focused on promoting a sustainable lifestyle', 'images/bll6.png', '2022-01-02 11:00:00', 3,3),
 ('Earn Online', 'Offer your skills and services on a freelance basis. Popular fields include writing, graphic design, web development, programming, and digital marketing', 'images/bll3.png', '2022-01-03 12:00:00', 8,4);
 
-INSERT INTO users ('user_name', 'username', 'password') VALUES ('John Victor', 'John', 'abc123');
+INSERT INTO users ('user_name', 'username', 'password') VALUES ('John Victor', 'admin', 'admin123');
 
 COMMIT;
 
