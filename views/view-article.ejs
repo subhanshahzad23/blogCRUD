@@ -34,6 +34,8 @@
     <section class="article-content topi">
         <div class="container" style="max-width: 800px; margin: auto; padding: 20px;">
             <div style="text-align: left; max-width: 800px; margin: auto; padding: 20px;">
+                <h1 class="heading">Reader Article Page </h1>
+
                 <h1 class="heading" style="font-size: 3rem; margin-bottom: 1rem;">
                     <%= article.article_title %>
                 </h1>
@@ -49,6 +51,10 @@
                             id="likeIcon"></i>
                         <strong>Likes:</strong>
                         <%= article.likes %>
+                            <i class="fa-solid fa-eye" style="margin-right: 10px; margin-left: 10px; cursor: pointer;"
+                                id="fa-eye"></i>
+                            <strong>Views:</strong>
+                            <%= article.reads %>
                     </p>
                 </div>
             </div>

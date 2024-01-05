@@ -12,6 +12,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        function incrementReads(event, articleId) {
+            event.preventDefault();
+
+            fetch('/read-article/' + articleId, {
+                method: 'POST',
+                // Add any needed headers, like CSRF tokens if you use them
+            }).then(response => {
+                window.location.href = response.url;
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </head>
 <style>
     body {
@@ -34,13 +48,15 @@
     <!-- Products -->
     <!-- Products -->
     <section id="products" class="products topi">
+        <h1 class="heading">Reader HomePage </h1>
+
         <h1 class="heading">Published <span>Articles</span></h1>
+
         <div class="box-container">
             <% if (articles && articles.length> 0) { %>
                 <% articles.forEach(function(article) { %>
                     <div class="box">
                         <div class="icons">
-                            <a href="" class="fa-solid fa-heart"></a>
                             <a href="/view-article/<%= article.article_id %>" class="fa-solid fa-eye"></a>
                         </div>
                         <img src="<%= article.article_image_path %>"
@@ -55,9 +71,11 @@
                             <p><strong>Last Modified:</strong>
                                 <%= article.last_modified_date %>
                             </p>
-                            <p>Reads: 120, Likes: <%= article.likes %>
+                            <p>Views: <%= article.reads %>, Likes: <%= article.likes %>
                             </p>
-                            <a href="/view-article/<%= article.article_id %>" class="btn">View</a>
+
+                            <a href="/view-article/<%= article.article_id %>" class="btn"
+                                onclick="incrementReads(event, '<%= article.article_id %>')">View</a>
                         </div>
                     </div>
                     <% }); %>

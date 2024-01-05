@@ -19,33 +19,64 @@
         background-color: #f9f9f9;
         background-image: url("./images/bg.jpg");
     }
+
+    .success {
+        background-color: green;
+        color: white;
+        padding: 10px;
+        text-align: center;
+
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
 </style>
+<script>
+    window.onload = function () {
+        setTimeout(function () {
+            var notificationBar = document.getElementById("notificationBar");
+            if (notificationBar) {
+                notificationBar.style.display = "none";
+            }
+        }, 5000); // The bar will disappear after 5 seconds
+    };
+</script>
+
 
 <body>
     <header>
         <div id="menu-bar" class="fa-solid fa-bars"></div>
         <a href="/home" class="logo">Trendy Blogs</a>
         <nav class="navbar">
-            <a href="/author-settings">Settings</a>
+            <a href="/author-setting">Settings</a>
             <a href="/create-draft">Create New Draft</a>
         </nav>
     </header>
 
     <section class="intro-section">
+
         <div class="content">
-            <h1 style="font-size: 4.5em; color: var(--black);" ;>Welcome Manal,</h1>
-            <h3 style="font-size: 1.5em; color: var(--black);">Manage your posts and engage with your audience.</h3>
+            <% if (message) { %>
+                <div id="notificationBar" class="<%= message.type %>">
+                    <%= message.content %>
+                </div>
+                <% } %>
+                    <h1 style="font-size: 4.5em; color: var(--black);">Welcome <%= userData.user_name %>, to Author Home
+                    </h1>
+                    <h3 style="font-size: 1.5em; color: var(--black);">Manage your posts and engage with your audience.
+                    </h3>
+
         </div>
     </section>
     <!-- Products -->
     <section id="products" class="products">
+
         <h1 class="heading">Published <span>Articles</span></h1>
         <div class="box-container">
             <% if (publishedArticles && publishedArticles.length> 0) { %>
                 <% publishedArticles.forEach(function(article) { %>
                     <div class="box">
                         <div class="icons">
-                            <a href="" class="fa-solid fa-eye"></a>
+                            <a href="/view-article/<%= article.article_id %>" class="fa-solid fa-eye"></a>
                         </div>
                         <img src="<%= article.article_image_path %>"
                             style="transform: rotate(0); margin: auto; display: block; width: 100%; height: 60%;" />
@@ -60,7 +91,10 @@
                                 <%= article.last_modified_date %>
                             </p>
                             <p>Likes: <%= article.likes %>
+                                    Views: <%= article.reads %>
+
                             </p>
+
                             <a href="/edit-publish-article/<%= article.article_id %>" class="btn">Edit</a>
                             <a href="/delete-published-article/<%= article.article_id %>" class="btn">Delete</a>
                         </div>
@@ -85,7 +119,9 @@
                             <h3 style="font-size: 1.9em; color: var(--black);">
                                 <%= draft.draft_title %>
                             </h3>
-                            <p><strong>Author name:</strong> Manal Hussein</p>
+                            <p><strong>Author name:</strong>
+                                <%= userData.user_name %>
+                            </p>
 
                             <p><strong>Last Modified:</strong>
                                 <%= draft.created_at %>

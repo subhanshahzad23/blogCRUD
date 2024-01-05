@@ -73,17 +73,18 @@
         <div class="content"
             style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.8);">
             <h1 class="heading">Settings</h1>
-            <form action="/update-settings" method="POST">
+            <form action="/update-setting" method="POST">
                 <div class="form-group">
                     <label for="authorName">Author Name</label>
                     <input type="text" id="authorName" name="authorName" placeholder="Enter your name"
-                        value="AuthorName123" required>
+                        value="<%= userData.user_name %>" required>
                 </div>
                 <div class="form-group">
                     <label for="authorUsername">Author Username</label>
                     <input type="text" id="authorUsername" name="authorUsername" placeholder="Enter your username"
-                        required>
+                        value="<%= userData.username %>" required>
                 </div>
+
                 <div class="form-group">
                     <label for="authorPassword">Author Password</label>
                     <input type="text" id="authorPassword" name="authorPassword" placeholder="Enter your password"
@@ -94,7 +95,6 @@
             </form>
         </div>
     </section>
-
 
     <section class="footer">
         <div class="box-container">

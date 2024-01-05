@@ -7,6 +7,21 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const { isAuthenticated } = require("./middlewares/auth");
+
+const session = require("express-session");
+
+app.use(
+  session({
+    secret: "your secret key", // Replace with your secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 40 * 1000, // This sets the session duration to 30 minutes
+    },
+  })
+);
+
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs"); // set the app to use ejs for rendering
@@ -26,16 +41,13 @@ global.db = new sqlite3.Database("./database.db", function (err) {
 });
 
 // Handle requests to the home page
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   // Render the home.ejs template
   res.render("home"); // Assuming "home.ejs" is the name of your template file
 });
 
-app.get("/author", (req, res) => {
+app.get("/author", isAuthenticated, (req, res) => {
   const draftsQuery = "SELECT * FROM drafts";
   const publishedQuery = "SELECT * FROM publishedarticles";
 
@@ -51,15 +63,30 @@ app.get("/author", (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
 
-      res.render("author", {
-        drafts: drafts,
-        publishedArticles: publishedArticles,
+      const userId = 1; // Example user ID
+      const query = "SELECT * FROM users WHERE user_id = ?";
+      global.db.get(query, [userId], (err, userData) => {
+        if (err) {
+          console.error("Error fetching user data:", err);
+          res.status(500).send("Internal Server Error");
+        }
+
+        // Check if there's a message in the session
+        let message = req.session.message;
+        delete req.session.message; // Remove the message after displaying it
+
+        res.render("author", {
+          drafts: drafts,
+          publishedArticles: publishedArticles,
+          userData: userData,
+          message: message, // Pass the message to the template
+        });
       });
     });
   });
 });
 
-app.get("/edit-publish-article/:articleId", (req, res) => {
+app.get("/edit-publish-article/:articleId", isAuthenticated, (req, res) => {
   const articleId = req.params.articleId;
 
   const query = "SELECT * FROM publishedarticles WHERE article_id = ?";
@@ -73,7 +100,7 @@ app.get("/edit-publish-article/:articleId", (req, res) => {
     }
   });
 });
-app.get("/edit-draft-article/:draftId", (req, res) => {
+app.get("/edit-draft-article/:draftId", isAuthenticated, (req, res) => {
   const draftId = req.params.draftId;
 
   const query = "SELECT * FROM drafts WHERE draft_id = ?";
@@ -129,9 +156,19 @@ app.get("/view-article/:articleId", (req, res) => {
   });
 });
 
-app.get("/author-settings", (req, res) => {
-  // Render the home.ejs template
-  res.render("author-setting"); // Assuming "home.ejs" is the name of your template file
+app.get("/author-setting", isAuthenticated, (req, res) => {
+  // Assuming you want to fetch user data here
+  const userId = 1; // Example user ID
+
+  const query = "SELECT * FROM users WHERE user_id = ?";
+  global.db.get(query, [userId], (err, userData) => {
+    if (err) {
+      console.error("Error fetching user data:", err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      res.render("author-setting", { userData: userData });
+    }
+  });
 });
 
 app.get("/create-draft", (req, res) => {
